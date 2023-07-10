@@ -4,25 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import "./Login.css";
 import axios from "axios";
-
 export default function Login() {
-  // token = "";
-  // const [token, setToken] = useState("");
-  var token = "";
+  const navigation = useNavigate();
+  const [token, setToken] = useState("");
+
   async function loginUser(data) {
     try {
-      const accessToken = "yuim98oq-e275-45a2-bc2e-b3098036d655";
       const user = await axios.post(`http://localhost:8000/sessions`, data);
       const userInfo = await user.data;
       console.log(userInfo.accessToken);
       localStorage.setItem("token", userInfo.accessToken);
-      return (token = userInfo.accessToken);
-      //   setToken(userInfo.token);
-      //   navigation("/");
+      setToken(userInfo.accessToken);
+      navigation(0);
     } catch (err) {
+      setToken(null);
       console.log("Greska");
-      localStorage.removeItem("token");
-      //   setToken(null);
     }
   }
 
@@ -32,21 +28,16 @@ export default function Login() {
       username,
       password,
     });
-    // useEffect(() => {
-    //   axios
-    //     .get("http://localhost:8000/quotes", {
-    //       headers: { Authorization: "Bearer " + token },
-    //     })
-    //     .then((res) => console.log(res))
-    //     .catch((err) => console.log);
-    // }, []);
-    // console.log(token);
   }
+  //   setTimeout(() => {
+  //     if (token.length > 5) {
+  //       window.location.reload(true);
+  //     }
+  //   }, 3000);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   return (
     <>
-      (
       <div className="cointener">
         <form>
           <h1 id="loginHeading">Login</h1>
@@ -80,7 +71,6 @@ export default function Login() {
           </button>
         </form>
       </div>
-      )
     </>
   );
 }
