@@ -3,21 +3,38 @@ import "./QuoteCard.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { AppContext } from "../../Context/AppContext";
+import axios from "axios";
 
 export default function QuoteCard({
   content,
   author,
   upvotesCount,
   downvotesCount,
+  id,
 }) {
-  function Vote() {
-    // const a = document.getElementsByTagName(FontAwesomeIcon);
-    // if (a.style.color == "grey") {
-    //   upvotesCount++;
-    //     a.style.color == "white";
-    // }
-  }
+  const { token, setToken } = useContext(AppContext);
+
   library.add(faCaretDown, faCaretUp);
+  // async function UpVote(id) {
+  //   var x = true;
+  //   if ((x = true)) {
+  //     axios.post(`https://localhost:8000/quotes/:${id}/upvote`);
+  //     x = false;
+  //   } else {
+  //     axios.delete(`https://localhost:8000/quotes/:${id}/upvote`);
+  //   }
+  // }
+  // async function DownVote(id) {
+  //   var x = true;
+  //   if ((x = true)) {
+  //     axios.post(`https://localhost:8000/quotes/:${id}/downvote`);
+  //     x = false;
+  //   } else {
+  //     axios.delete(`https://localhost:8000/quotes/:${id}/downvote`);
+  //   }
+  // }
   return (
     <>
       <div className="QuoteCard">
@@ -25,6 +42,7 @@ export default function QuoteCard({
           <FontAwesomeIcon
             style={{ color: "grey" }}
             icon="fa-solid fa-caret-up"
+            // onClick={UpVote(id)}
           />
           <h5 className="rating">
             {Math.round((upvotesCount / (upvotesCount + downvotesCount)) * 100)}
@@ -36,6 +54,7 @@ export default function QuoteCard({
           <FontAwesomeIcon
             style={{ color: "grey" }}
             icon="fa-solid fa-caret-down"
+            // onClick={DownVote(id)}
           />{" "}
         </div>
         <div className="quote">

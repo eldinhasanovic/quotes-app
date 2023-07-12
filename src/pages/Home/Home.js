@@ -19,12 +19,13 @@ export default function Home() {
       })
       .catch((err) => console.log);
   }
-  GetData();
+  window.onload = GetData();
   return (
     <>
       {data.map((quotes) => {
         return (
           <QuoteCard
+            id={quotes.id}
             downvotesCount={quotes.downvotesCount}
             upvotesCount={quotes.upvotesCount}
             content={quotes.content}
