@@ -64,12 +64,14 @@ export default function QuoteCard({
             // style={{ color: "grey" }}
             icon="fa-solid fa-caret-down"
             // onClick={handleClickk}
-            style={{ color: activedown ? "red" : "grey" }}
+            style={{
+              color: activedown ? "red" : "grey",
+            }}
           />{" "}
         </div>
         <div className="quote">
-          <h3 className="content">{content}</h3>
-          <h5 className="author">{author}</h5>
+          <h4 className="content">{content}</h4>
+          <h6 className="author">{author}</h6>
         </div>
       </div>
     </>
