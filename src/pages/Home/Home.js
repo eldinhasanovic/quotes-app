@@ -11,13 +11,9 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:8000/quotes",
-        {},
-        {
-          headers: { Authorization: "Bearer " + token },
-        }
-      )
+      .get("http://localhost:8000/quotes/?pageSize=7", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => {
         console.log(res.data);
         setData(res.data.quotes);

@@ -19,6 +19,7 @@ export default function Login() {
     } catch (err) {
       setToken(null);
       console.log("Greska");
+      alert("Uneli ste pogresne podatke");
     }
   }
 

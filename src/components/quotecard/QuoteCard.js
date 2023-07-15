@@ -38,9 +38,13 @@ export default function QuoteCard({
   var [active, setActive] = useState(false);
   var [activedown, setActivedown] = useState(false);
   const handleClick = () => {
-    axios.post(`http://localhost:8000/quotes/:${id}/upvote`, {
-      headers: { Authorization: "Bearer " + token },
-    });
+    axios.post(
+      `http://localhost:8000/quotes/${id}/upvote`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     setActive(!active);
   };
   return (
