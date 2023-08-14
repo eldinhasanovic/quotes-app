@@ -13,6 +13,7 @@ export default function QuoteCard({
   upvotesCount,
   downvotesCount,
   id,
+  givenVote,
 }) {
   const { token, setToken } = useContext(AppContext);
 
@@ -37,15 +38,46 @@ export default function QuoteCard({
   // }
   var [active, setActive] = useState(false);
   var [activedown, setActivedown] = useState(false);
+  var [upvotecount, setupvotecount] = useState(false);
+  var [downvoteCount, setDownvoteCount] = useState(false);
+  setupvotecount(upvotesCount);
+  setDownvoteCount(downvotesCount);
   const handleClick = () => {
-    axios.post(
-      `http://localhost:8000/quotes/${id}/upvote`,
-      {},
-      {
+    console.log(givenVote);
+    if (givenVote === "upvote") {
+      axios.delete(`http://localhost:8000/quotes/${id}/upvote`, {
         headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+      });
+    } else {
+      axios.post(
+        `http://localhost:8000/quotes/${id}/upvote`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      // setupvotecount(upvotecount+1)
+    }
     setActive(!active);
+  };
+  const handleClickk = () => {
+    console.log(givenVote);
+    if (givenVote === "downvote") {
+      axios.delete(`http://localhost:8000/quotes/${id}/downvote`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      downvotesCount -= 1;
+    } else {
+      axios.post(
+        `http://localhost:8000/quotes/${id}/downvote`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      downvotesCount += 1;
+    }
+    setActivedown(!activedown);
   };
   return (
     <>
@@ -58,16 +90,15 @@ export default function QuoteCard({
             style={{ color: active ? "green" : "grey" }}
           />
           <h5 className="rating">
-            {Math.round((upvotesCount / (upvotesCount + downvotesCount)) * 100)}
-            %
+            {Math.round((upvotecount / (upvotecount + downvoteCount)) * 100)}%
           </h5>
           <h4 className="updown">
-            {upvotesCount}/{downvotesCount}
+            {upvotecount}/{downvoteCount}
           </h4>
           <FontAwesomeIcon
             // style={{ color: "grey" }}
             icon="fa-solid fa-caret-down"
-            // onClick={handleClickk}
+            onClick={handleClickk}
             style={{
               color: activedown ? "red" : "grey",
             }}

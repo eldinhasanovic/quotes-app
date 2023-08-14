@@ -26,6 +26,7 @@ export default function Home() {
         {data.map((quotes) => {
           return (
             <QuoteCard
+              givenVote={quotes.givenVote}
               id={quotes.id}
               downvotesCount={quotes.downvotesCount}
               upvotesCount={quotes.upvotesCount}
